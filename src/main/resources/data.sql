@@ -1,0 +1,1 @@
+INSERT INTO user (id, user_birthday, enable, last_name, name, password, token, username,role_id) VALUES (2, '2000-10-10 13:00:00', 1, 'lastname', 'name', 'test' , null, 'test', null);
