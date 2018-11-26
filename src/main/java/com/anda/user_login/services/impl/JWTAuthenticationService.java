@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -21,11 +22,17 @@ public class JWTAuthenticationService  implements UserAuthenticationService {
     private JWTService jwtService;
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public String login(String username, String password) throws BadCredentialsException {
         return userService
                 .getByUsername(username)
-                .filter(user -> Objects.equals(password, user.getPassword()))
+                .filter(
+                        user ->  passwordEncoder.matches(password,user.getPassword())
+                )
                 .map(user -> jwtService.create(username))
                 .orElseThrow(() -> new BadCredentialsException("Invalid Username or password."));
     }

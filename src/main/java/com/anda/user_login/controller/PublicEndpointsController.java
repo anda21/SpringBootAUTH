@@ -41,6 +41,7 @@ public class PublicEndpointsController {
             return authenticationService
                     .login(username, password);
         } catch (BadCredentialsException e) {
+
             return ResponseEntity.status(UNAUTHORIZED).body(e.getMessage());
         }
     }
