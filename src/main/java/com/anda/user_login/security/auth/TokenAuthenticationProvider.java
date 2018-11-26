@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -17,7 +18,8 @@ import java.util.Optional;
 
 @Component
 public class TokenAuthenticationProvider  extends AbstractUserDetailsAuthenticationProvider {
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private UserAuthenticationService userAuthenticationService;
 
