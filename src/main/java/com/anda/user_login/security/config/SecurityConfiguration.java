@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final RequestMatcher PUBLIC_URLS = new OrRequestMatcher(
             new AntPathRequestMatcher("/register"),
             new AntPathRequestMatcher("/login"),
+            new AntPathRequestMatcher("/getNamePlaceDetails"),
             new AntPathRequestMatcher("/"),
             new AntPathRequestMatcher("/swagger-ui.html"),
             new AntPathRequestMatcher("/swagger-resources"),
@@ -70,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(restAuthenticationFilter(), AnonymousAuthenticationFilter.class)
                 .authorizeRequests()
                 .anyRequest()
-                .authenticated()
+                .permitAll()
                 .and()
                 .csrf().disable()
                 .formLogin().disable()
